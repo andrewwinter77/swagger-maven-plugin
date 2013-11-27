@@ -11,6 +11,7 @@ import com.github.kongchen.swagger.docgen.TypeUtils;
 import com.wordnik.swagger.core.Documentation;
 import com.wordnik.swagger.core.DocumentationEndPoint;
 import com.wordnik.swagger.core.DocumentationOperation;
+import com.wordnik.swagger.core.DocumentationSchema;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,13 +49,18 @@ public class OutputTemplate {
         if (dataTypes.contains(dataType)) {
             return;
         }
+        final DocumentationSchema model = mustacheDocument.getModel(dataType.getName());
+        if (model != null) {
+            dataType.setDescription(model.getDescription());
+        }
+        
         dataTypes.add(dataType);
         for (MustacheItem item : dataType.getItems()) {
             String trueType = TypeUtils.getTrueType(item.getType());
             if (trueType == null) {
                 continue;
             }
-            addDateType(mustacheDocument, new MustacheDataType(mustacheDocument, trueType));
+            addDateType(mustacheDocument, new MustacheDataType(mustacheDocument, trueType, item.getDescription()));
 
         }
     }

@@ -8,11 +8,18 @@ public class MustacheDataType implements Comparable<MustacheDataType> {
 
     List<MustacheItem> items;
 
-    public MustacheDataType(MustacheDocument mustacheDocument, String requestType) {
+    String description;
+    
+    public MustacheDataType(MustacheDocument mustacheDocument, String requestType, String description) {
         this.name = requestType;
         this.items = mustacheDocument.analyzeDataTypes(requestType);
+        this.description = description;
     }
 
+    public MustacheDataType(MustacheDocument mustacheDocument, String requestType) {
+        this(mustacheDocument, requestType, "")
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,6 +45,15 @@ public class MustacheDataType implements Comparable<MustacheDataType> {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
     public List<MustacheItem> getItems() {
         return items;
     }
@@ -58,6 +74,7 @@ public class MustacheDataType implements Comparable<MustacheDataType> {
     public String toString() {
         return "MustacheDataType{" +
                 "name='" + name + '\'' +
+                "description='" + description + '\'' +
                 ", items=" + items +
                 '}';
     }

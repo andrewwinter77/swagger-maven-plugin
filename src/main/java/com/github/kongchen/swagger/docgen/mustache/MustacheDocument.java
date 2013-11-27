@@ -79,6 +79,10 @@ public class MustacheDocument implements Comparable<MustacheDocument>{
         return responseTypes;
     }
 
+    public DocumentationSchema getModel(String type) {
+        return models.get(type);
+    }
+    
     public int getIndex() {
         return index;
     }
